@@ -1,4 +1,31 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: 5% auto 0;
+
+  .lineThrough {
+    text-decoration: line-through;
+    opacity: 0.5;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +62,6 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
+
+

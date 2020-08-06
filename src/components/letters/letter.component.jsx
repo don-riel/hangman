@@ -1,15 +1,16 @@
 import React from 'react';
 
+import './letters.style.scss';
+
 function Letter({letters, handleClick}) {
+ 
     return (
-        <div>
-            <ul>
-                {letters.map(letter =>
-            <li key={letter} onClick={() => handleClick(letter)}>
-                {letter}
+        <div className='letters'>          
+            {letters.map(letter =>
+            <li key={letter} onClick={(event) => handleClick(event,letter)} >
+                {letter.toLowerCase()}
             </li>
             )}
-        </ul>
         </div>
     )
 }
