@@ -25,4 +25,13 @@
         }
     }
 
+    .lineThrough {
+        text-decoration: line-through;
+        opacity: 0.5;
+    
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+
 }

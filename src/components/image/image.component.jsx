@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import base from '../../assets/images/base.png'
 import firstLvl from '../../assets/images/first.png';
@@ -7,12 +7,14 @@ import thirdLvl from '../../assets/images/third.png';
 import fourthLvl from '../../assets/images/fourth.jpg';
 import fifthLvl from '../../assets/images/fifth.jpg';
 import endLvl from '../../assets/images/complete.png';
+import GameOver from '../game-over/game-over.component'
 
 import './image.styles.scss'
 
 
-function HangmanImage({tryCount}) {
-    const count = tryCount;
+function HangmanImage({wrongCount}) {
+    
+    const count = wrongCount;
     let renderedImage = null;
 
     switch (count) {
@@ -41,6 +43,9 @@ function HangmanImage({tryCount}) {
     return (
        <div className='hangman-img-box'>
            <img src={renderedImage} alt=""/>
+           {
+               wrongCount === 6 ? <GameOver /> : ''
+           }
        </div>
         
     )
