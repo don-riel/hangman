@@ -1,8 +1,8 @@
 import React from 'react';
 
-function GameOver() {
+function GameOver({children}) {
     return (
-        <h2>Game Over</h2>
+    <h2>{children}</h2>
     )   
 }
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HiddenLetter from '../hidden-letters/hidden-letters.component';
 import './letters.style.scss';
 
-function Letter({ word, onWrongLetter }) {
+function Letter({ word, onWrongLetter, onCorrectLetter }) {
 
     const A = 65;
     const [letters, setLetters] = useState(Array.from({length: 26}, (_, i) => String.fromCharCode(A + i)));
@@ -36,8 +36,12 @@ function Letter({ word, onWrongLetter }) {
 
     const removeAndIncreaseWrongCount = (toRemove) => {
         removeLetter(toRemove)
-        onWrongLetter()
-        
+        onWrongLetter()    
+    }
+
+    const updateCorrectCount = (toRemove) => {
+        onCorrectLetter()
+        removeLetter(toRemove)
     }
 
     const updateHiddenArr = (letter) => {
@@ -47,14 +51,12 @@ function Letter({ word, onWrongLetter }) {
                toUpdate[i] = letter
            }
         })
-
-        setHiddenLetterArr(toUpdate)
-        
+        setHiddenLetterArr(toUpdate)     
     }
 
     
     const handleClick = (letter, word) => {
-        word[0].includes(letter.toLowerCase()) ? removeLetter(letter)  : removeAndIncreaseWrongCount(letter);
+        word[0].includes(letter.toLowerCase()) ? updateCorrectCount(letter)  : removeAndIncreaseWrongCount(letter);
         updateHiddenArr(letter.toLowerCase())
     }
     

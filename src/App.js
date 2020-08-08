@@ -10,13 +10,35 @@ import NewGameButton from './components/buttons/newGame.button';
 function App() {
   const [word, setWord] = useState(null);
   const [wrongCount, setWrongCount] = useState(0);
-  const [playerStatus, setplayerStatus] = useState(false);
+  const [uniqueLetterArr, setUniqueLetterArr] = useState([0]);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [gameStatus, setgameStatus] = useState(false);
+
+  useEffect(() => {
+    if(word !== null) {
+        let arr = word[0].split('');
+        let unique = [];
+        arr.forEach(element => {
+          if(!(unique.includes(element))) {
+            unique.push(element)
+          }
+        });
+        setUniqueLetterArr(unique)
+    }
+  },[word])
 
   useEffect(() => {
     if(wrongCount === 6) {
-      setplayerStatus(!playerStatus)
+      setgameStatus(!gameStatus)
     }
   },[wrongCount])
+
+  useEffect(() => {
+    if(correctCount === uniqueLetterArr.length) {
+      setgameStatus(!gameStatus)
+      setCorrectCount(0)
+    }
+  },[correctCount])
 
   const fetchWords = async () => {
     fetch('https://random-word-api.herokuapp.com/word?number=1')
@@ -24,23 +46,30 @@ function App() {
     .then(res => setWord(res))
   }
   
-  const increasewrongCount= () => {
+  const increaseCorrectCount = () => {
+    setCorrectCount(correctCount + 1)
+    console.log(correctCount + 'correct count')
+  }
+  const increaseWrongCount= () => {
     setWrongCount(wrongCount + 1)
-    console.log(wrongCount)
+  }
+
+  const toggleGameStatus = () => {
+    setgameStatus(!gameStatus)
   }
 
   const onPlayerReady = () => {
-    setplayerStatus(!playerStatus)
+    setgameStatus(!gameStatus)
     setWrongCount(0);
     fetchWords()
   }
   
   return (
     <div className='App'>
-      <HangmanImage wrongCount={wrongCount} />
+      <HangmanImage wrongCount={wrongCount} correctCount={correctCount}  uniqueLetterArr={uniqueLetterArr} />
       <Word word={word} />
       {
-        playerStatus ? <Letter word={word} onWrongLetter={increasewrongCount} /> : <NewGameButton handleCount={onPlayerReady} />
+        gameStatus ? <Letter word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady} />
       }        
     </div>
   )

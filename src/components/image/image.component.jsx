@@ -12,7 +12,7 @@ import GameOver from '../game-over/game-over.component'
 import './image.styles.scss'
 
 
-function HangmanImage({wrongCount}) {
+function HangmanImage({wrongCount, correctCount, uniqueLetterArr}) {
     
     const count = wrongCount;
     let renderedImage = null;
@@ -44,7 +44,10 @@ function HangmanImage({wrongCount}) {
        <div className='hangman-img-box'>
            <img src={renderedImage} alt=""/>
            {
-               wrongCount === 6 ? <GameOver /> : ''
+               wrongCount === 6 ? <GameOver>Game Over!!</GameOver> : ''
+           }
+           {
+               correctCount === uniqueLetterArr.length ? <p>Good Job</p> : ''
            }
        </div>
         
