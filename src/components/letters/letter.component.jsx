@@ -28,6 +28,7 @@ function Letter({ word, onWrongLetter }) {
     },[wordLetterArr])
 
 
+
     const removeLetter = (toRemove) => {
         const filteredLetters = letters.filter(letter => letter !== toRemove );
         setLetters(filteredLetters)    
@@ -39,17 +40,15 @@ function Letter({ word, onWrongLetter }) {
         
     }
 
-    
-
-    
     const updateHiddenArr = (letter) => {
         let toUpdate = hiddenLetterArr;
-
-        
-
-        wordLetterArr.forEach((elem) => {
-            letter === elem ? toUpdate.push(elem) : toUpdate.push('_')
+        wordLetterArr.forEach((elem,i) => {
+           if(elem === letter) {
+               toUpdate[i] = letter
+           }
         })
+
+        setHiddenLetterArr(toUpdate)
         
     }
 
