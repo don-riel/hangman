@@ -43,12 +43,12 @@ function HangmanImage({wrongCount, correctCount, uniqueLetterArr}) {
     return (
        <div className='hangman-img-box'>
            <img src={renderedImage} alt=""/>
-           {
-               wrongCount === 6 ? <GameOver>Game Over!!</GameOver> : ''
-           }
-           {
-               correctCount === uniqueLetterArr.length ? <p>Good Job</p> : ''
-           }
+           <div className='gameOver'>
+               {
+               wrongCount === 6 ? <GameOver>Game Over!!</GameOver> : correctCount === uniqueLetterArr.length ? <h1>Good Job!!</h1> : ''
+            }    
+           </div>
+           
        </div>
         
     )

@@ -25,6 +25,7 @@ function App() {
         });
         setUniqueLetterArr(unique)
     }
+    console.log(word)
   },[word])
 
   useEffect(() => {
@@ -36,7 +37,6 @@ function App() {
   useEffect(() => {
     if(correctCount === uniqueLetterArr.length) {
       setgameStatus(!gameStatus)
-      setCorrectCount(0)
     }
   },[correctCount])
 
@@ -44,11 +44,13 @@ function App() {
     fetch('https://random-word-api.herokuapp.com/word?number=1')
     .then(res => res.json())
     .then(res => setWord(res))
+    .catch(() => prompt('Ops something went wrong'))
   }
   
   const increaseCorrectCount = () => {
     setCorrectCount(correctCount + 1)
     console.log(correctCount + 'correct count')
+    console.log(uniqueLetterArr.length)
   }
   const increaseWrongCount= () => {
     setWrongCount(wrongCount + 1)
@@ -61,13 +63,16 @@ function App() {
   const onPlayerReady = () => {
     setgameStatus(!gameStatus)
     setWrongCount(0);
+    setCorrectCount(0);
     fetchWords()
   }
   
   return (
     <div className='App'>
       <HangmanImage wrongCount={wrongCount} correctCount={correctCount}  uniqueLetterArr={uniqueLetterArr} />
-      <Word word={word} />
+      {
+        gameStatus ?  '' : <Word word={word} />
+      }
       {
         gameStatus ? <Letter word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady} />
       }        
