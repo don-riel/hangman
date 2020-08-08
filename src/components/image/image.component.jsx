@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import base from '../../assets/images/base.png'
 import firstLvl from '../../assets/images/first.png';

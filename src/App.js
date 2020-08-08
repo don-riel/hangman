@@ -10,7 +10,7 @@ import NewGameButton from './components/buttons/newGame.button';
 function App() {
   const [word, setWord] = useState(null);
   const [wrongCount, setWrongCount] = useState(0);
-  const [playerStatus, setplayerStatus] = useState(true);
+  const [playerStatus, setplayerStatus] = useState(false);
 
   useEffect(() => {
     if(wrongCount === 6) {
@@ -18,14 +18,11 @@ function App() {
     }
   },[wrongCount])
 
-
-
   const fetchWords = async () => {
     fetch('https://random-word-api.herokuapp.com/word?number=1')
     .then(res => res.json())
     .then(res => setWord(res))
   }
-  
   
   const increasewrongCount= () => {
     setWrongCount(wrongCount + 1)
@@ -43,7 +40,7 @@ function App() {
       <HangmanImage wrongCount={wrongCount} />
       <Word word={word} />
       {
-        playerStatus ? <NewGameButton handleCount={onPlayerReady} /> : <Letter word={word} onWrongLetter={increasewrongCount} />
+        playerStatus ? <Letter word={word} onWrongLetter={increasewrongCount} /> : <NewGameButton handleCount={onPlayerReady} />
       }        
     </div>
   )
