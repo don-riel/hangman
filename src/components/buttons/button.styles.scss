@@ -1,0 +1,17 @@
+button {
+    box-sizing: border-box;
+    border: 1px solid #f9f9f9;
+    border-radius: 5px;
+    background: rgb(34, 33, 33);
+    color: white;
+    height: 3em;
+    width: 9em;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-top: 0;
+    &:hover {
+        cursor: pointer;
+        background: #4e4d4d50;
+        color: black;
+    }
+}

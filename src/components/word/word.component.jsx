@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import HiddenLetters from '../hidden-letters/hidden-letters.component';
+import './word.styles.scss';
 
 function Word({word}) {
     //TODO
@@ -14,7 +15,7 @@ function Word({word}) {
         
     return (
         <div>
-            <p>{word}</p>
+            <p className='word'>{word}</p>
         </div>
     )
 }

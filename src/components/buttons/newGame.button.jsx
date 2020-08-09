@@ -1,7 +1,9 @@
 import React from 'react';
 
-function NewGameButton({handleCount}) {
-    return <button onClick={handleCount}>New Game</button>
+import './button.styles.scss';
+
+function NewGameButton({handleCount, children}) {
+    return <button onClick={handleCount}>{children}</button>
 }
 
 export default NewGameButton;

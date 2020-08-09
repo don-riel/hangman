@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 
-
+import Header from './components/header/header.component';
 import HangmanImage from './components/image/image.component';
 import Word from './components/word/word.component';
 import Letter from './components/letters/letter.component';
@@ -24,19 +24,19 @@ function App() {
           }
         });
         setUniqueLetterArr(unique)
+        console.log(word)
     }
-    console.log(word)
   },[word])
 
   useEffect(() => {
     if(wrongCount === 6) {
-      setgameStatus(!gameStatus)
+      toggleGameStatus()
     }
   },[wrongCount])
 
   useEffect(() => {
     if(correctCount === uniqueLetterArr.length) {
-      setgameStatus(!gameStatus)
+      toggleGameStatus()
     }
   },[correctCount])
 
@@ -49,9 +49,8 @@ function App() {
   
   const increaseCorrectCount = () => {
     setCorrectCount(correctCount + 1)
-    console.log(correctCount + 'correct count')
-    console.log(uniqueLetterArr.length)
   }
+
   const increaseWrongCount= () => {
     setWrongCount(wrongCount + 1)
   }
@@ -69,12 +68,13 @@ function App() {
   
   return (
     <div className='App'>
+      <Header />
       <HangmanImage wrongCount={wrongCount} correctCount={correctCount}  uniqueLetterArr={uniqueLetterArr} />
       {
         gameStatus ?  '' : <Word word={word} />
       }
       {
-        gameStatus ? <Letter word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady} />
+        gameStatus ? <Letter word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady}>New Game</NewGameButton>
       }        
     </div>
   )

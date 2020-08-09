@@ -1,0 +1,22 @@
+.header {
+    margin: 2em 0;
+    text-align: center;
+    h1,p {
+        margin: 0 0 1em;
+        letter-spacing: 2px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .header {
+        margin-top: 0.5em;
+    }
+}
