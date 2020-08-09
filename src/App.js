@@ -24,7 +24,6 @@ function App() {
           }
         });
         setUniqueLetterArr(unique)
-        console.log(word)
     }
   },[word])
 
