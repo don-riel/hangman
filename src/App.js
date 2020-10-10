@@ -13,6 +13,7 @@ function App() {
   const [uniqueLetterArr, setUniqueLetterArr] = useState([0]);
   const [correctCount, setCorrectCount] = useState(0);
   const [gameStatus, setgameStatus] = useState(false);
+  const [fetchSuccesful, setFetchSuccesful] = useState(null);
 
   useEffect(() => {
     if(word !== null) {
@@ -42,8 +43,15 @@ function App() {
   const fetchWords = async () => {
     fetch('https://random-word-api.herokuapp.com/word?number=1')
     .then(res => res.json())
-    .then(res => setWord(res))
-    .catch(() => prompt('Ops something went wrong'))
+    .then(res => {
+          setWord(res)
+          setFetchSuccesful(true)
+        }
+      )
+    .catch(() => {
+        setFetchSuccesful(false)
+      }
+    )
   }
   
   const increaseCorrectCount = () => {
@@ -73,7 +81,7 @@ function App() {
         gameStatus ?  '' : <Word word={word} />
       }
       {
-        gameStatus ? <Letter word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady}>New Game</NewGameButton>
+        gameStatus ? <Letter fetchSucces={fetchSuccesful} word={word} onWrongLetter={increaseWrongCount} onCorrectLetter={increaseCorrectCount} /> : <NewGameButton handleCount={onPlayerReady}>New Game</NewGameButton>
       }        
     </div>
   )

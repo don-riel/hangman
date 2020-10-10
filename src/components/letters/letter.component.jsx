@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import HiddenLetter from '../hidden-letters/hidden-letters.component';
 import './letters.style.scss';
 
-function Letter({ word, onWrongLetter, onCorrectLetter }) {
+function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
 
     const A = 65;
     const [letters, setLetters] = useState(Array.from({length: 26}, (_, i) => String.fromCharCode(A + i)));
@@ -62,17 +62,23 @@ function Letter({ word, onWrongLetter, onCorrectLetter }) {
     
     return (
         <div>
-            <div className='HiddenLetter'>
-                <HiddenLetter  arr={hiddenLetterArr}/> 
-            </div>
-            <div className='letters'>
-                {letters.map((letter, i = 0 ) =>
-                <li key={i +1} onClick={() => handleClick(letter, word)} >
-                    {letter.toLowerCase()}
-                </li>
-                )}
-            </div>             
+            {
+                fetchSucces ? <div>
+                <div className='HiddenLetter'>
+                    <HiddenLetter  arr={hiddenLetterArr}/> 
+                </div>
+                <div className='letters'>
+                    {letters.map((letter, i = 0 ) =>
+                    <li key={i +1} onClick={() => handleClick(letter, word)} >
+                        {letter.toLowerCase()}
+                    </li>
+                    )}
+                </div>             
+            </div> : <h4 style={{color: 'gray'}}>Something went wrong with the random word API server. Try again later!</h4>
+            }
         </div>
+        
+        
     )
 }
 
