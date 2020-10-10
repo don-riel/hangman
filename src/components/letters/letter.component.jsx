@@ -74,7 +74,7 @@ function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
                     </li>
                     )}
                 </div>             
-            </div> : <h4 style={{color: 'gray'}}>Something went wrong with the random word API server. Try again later!</h4>
+            </div> : <h4 style={{color: 'gray'}}>Something went wrong with the random word generator server. Try again later!</h4>
             }
         </div>
         
