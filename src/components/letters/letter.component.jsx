@@ -74,7 +74,11 @@ function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
                     </li>
                     )}
                 </div>             
-            </div> : <h4 style={{color: 'gray'}}>Something went wrong with the random word generator server. Try again later!</h4>
+            </div> : <div className='error-info'>
+                        <h3>Offline for maintenance.</h3>
+                        <p>The random word generator api is under maintenance.</p>
+                        <p>Please check back later!</p>
+                    </div>
             }
         </div>
         
