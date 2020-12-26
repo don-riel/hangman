@@ -103,8 +103,6 @@ function App() {
       ) : (
         ""
       )}
-
-      {word}
     </div>
   );
 }
