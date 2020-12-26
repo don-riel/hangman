@@ -14,10 +14,10 @@ import './image.styles.scss'
 
 function HangmanImage({wrongCount, correctCount, uniqueLetterArr}) {
     
-    const count = wrongCount;
+    const count = wrongCount; //starts with 0
     let renderedImage = null;
 
-    switch (count) {
+    switch (count) { //update game image with every wrong count increment
         case 1:
             renderedImage = firstLvl;
             break;
@@ -39,13 +39,15 @@ function HangmanImage({wrongCount, correctCount, uniqueLetterArr}) {
         default:
             renderedImage = base;
     }
-    //const image = null;
+    
     return (
        <div className='hangman-img-box'>
            <img src={renderedImage} alt=""/>
            <div className='gameOver'>
-                {
-               wrongCount === 6 ? <GameOver>Game Over!!</GameOver> : correctCount === uniqueLetterArr.length ? <h1>Good Job!!</h1> : ''
+            {
+               wrongCount === 6 ? <GameOver>Game Over!!</GameOver> 
+                                : (correctCount === uniqueLetterArr.length ? <h1>Good Job!!</h1> 
+                                                                        : '')
             }    
            </div>
            

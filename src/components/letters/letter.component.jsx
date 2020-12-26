@@ -3,23 +3,23 @@ import React, { useState, useEffect } from 'react';
 import HiddenLetter from '../hidden-letters/hidden-letters.component';
 import './letters.style.scss';
 
-function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
+function Letter({ fetchSuccess, word, onWrongLetter, onCorrectLetter }) {
 
     const A = 65;
-    const [letters, setLetters] = useState(Array.from({length: 26}, (_, i) => String.fromCharCode(A + i)));
+    const [letters, setLetters] = useState(Array.from({length: 26}, (_, i) => String.fromCharCode(A + i))); //leters A-Z
     const [wordLetterArr, setwordLetterArr] = useState([0]);
-    const [hiddenLetterArr, setHiddenLetterArr] = useState([])
-    // const [letterCount, setLetterCount] = useState(0);
-    // const [uniqueLetters, setUniqueLetters] = useState([]);
-    // const [wordLength, setWordLength] = useState([0]);
+    const [hiddenLetterArr, setHiddenLetterArr] = useState([]); 
+
 
     useEffect(() => {
+        //converts word string into char array
         if(word !== null) {
             setwordLetterArr(word[0].split(''))   
         }
     },[word])
 
     useEffect(() => {
+        //an array of "__" corresponding to the letters in the word, ex. "hidden" = [ _, _, _, _, _, _ ]
         let arr = [];
         for (let index = 0; index < wordLetterArr.length; index++) {
             arr.push(' __ ')        
@@ -27,9 +27,28 @@ function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
         setHiddenLetterArr(arr)
     },[wordLetterArr])
 
+    
+    const handleClick = (letter) => {
+        //check if the clicked letter exists in the word
+        word[0].includes(letter.toLowerCase()) ? updateCorrectCount(letter)  : removeAndIncreaseWrongCount(letter);
+        //correct letter guess, show letter
+        updateHiddenArr(letter.toLowerCase())
+    }
+
+    //correctly guessed letters are shown from the hidden letters "_,_,d,_,e,n"
+    const updateHiddenArr = (letter) => {
+        let toUpdate = hiddenLetterArr;
+        wordLetterArr.forEach((elem,i) => {
+           if(elem === letter) {
+               toUpdate[i] = letter
+           }
+        })
+        setHiddenLetterArr(toUpdate)     
+    }
 
 
     const removeLetter = (toRemove) => {
+        //remove clicked letter from the displayed letter choices
         const filteredLetters = letters.filter(letter => letter !== toRemove );
         setLetters(filteredLetters)    
     }
@@ -44,42 +63,28 @@ function Letter({ fetchSucces, word, onWrongLetter, onCorrectLetter }) {
         removeLetter(toRemove)
     }
 
-    const updateHiddenArr = (letter) => {
-        let toUpdate = hiddenLetterArr;
-        wordLetterArr.forEach((elem,i) => {
-           if(elem === letter) {
-               toUpdate[i] = letter
-           }
-        })
-        setHiddenLetterArr(toUpdate)     
-    }
-
     
-    const handleClick = (letter, word) => {
-        word[0].includes(letter.toLowerCase()) ? updateCorrectCount(letter)  : removeAndIncreaseWrongCount(letter);
-        updateHiddenArr(letter.toLowerCase())
-    }
     
     return (
         <div>
             {
-                fetchSucces ? <div>
-                <div className='HiddenLetter'>
-                    <HiddenLetter  arr={hiddenLetterArr}/> 
-                </div>
-                <div className='letters'>
-                    {letters.map((letter, i = 0 ) =>
-                    <li key={i +1} onClick={() => handleClick(letter, word)} >
-                        {letter.toLowerCase()}
-                    </li>
-                    )}
-                </div>             
-            </div> : <div className='error-info'>
-                        <h3>Offline for maintenance.</h3>
-                        <p>The random word generator api is under maintenance.</p>
-                        <p>Please check back later!</p>
+                fetchSuccess 
+                ? 
+                (<div>
+                    <div className='HiddenLetter'>
+                <HiddenLetter  arr={hiddenLetterArr}/> {/* "_ _ _ _ _ _ " */}
                     </div>
+                    <div className='letters'> {/* letters A-Z*/}
+                        {letters.map((letter, i = 0 ) =>
+                        <li key={i +1} onClick={() => handleClick(letter)} >
+                            {letter.toLowerCase()}
+                        </li>
+                        )}
+                    </div>             
+                </div>) 
+                : "...."
             }
+         
         </div>
         
         
