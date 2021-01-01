@@ -42,7 +42,7 @@ function App() {
       //convert the random word string into char array
       let arr = word[0].split("");
 
-      //grab and store the unique letters in an array
+      //grab and store the unique letters from the word array
       let unique = [];
       arr.forEach((element) => {
         if (!unique.includes(element)) {
